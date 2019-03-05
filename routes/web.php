@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
@@ -27,3 +27,7 @@ Route::get('/template', function () {
 
 
 Route::resource('/tasks', 'TaskController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -43,33 +43,38 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                   <a href="">
-                       <p>Account</p>
-                    </a>
-                </li>
+                
                 <li class="dropdown">
+                        
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <p>
-                                Dropdown
+                            <p><i class="pe-7s-user"></i>
+                                {{Auth::user()->name}}
                                 <b class="caret"></b>
                             </p>
 
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something</a></li>
+                        <li><a href="#">View Profile</a></li>
+                        <li><a href="#">View All Tasks</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                             </a>
+    
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                 @csrf
+                             </form>
+                        </li>
                       </ul>
                 </li>
+                
                 <li>
-                    <a href="#">
-                        <p>Log out</p>
-                    </a>
+                    
+                            
+                    
                 </li>
                 <li class="separator hidden-lg"></li>
             </ul>

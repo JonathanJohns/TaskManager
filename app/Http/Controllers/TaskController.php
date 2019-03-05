@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tasks;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -12,15 +13,27 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+
     public function index()
     {
         //
 
-        $tasks = Tasks::orderBy('created_at', 'desc')->get();
+        $tasks = Tasks::orderBy('created_at', 'desc')->paginate(6);
 
         $data = [
             'tasks' => $tasks,
         ];
+
+
+        
         return view('admin.pages.task.index')->with($data);
     }
 
@@ -49,16 +62,28 @@ class TaskController extends Controller
         $subject = $request->subject ;
         $priority = $request->priority ;
         $description = $request->description ;
+        $related_to = $request->task_related_to ;
 
         $task = new Tasks;
         $task->subject = $subject;
         $task->priority = $priority;
         $task->description = $description;
-        $task->save();
+        $task->task_related_to = $related_to;
 
 
-        $success = array('message' => 'success', 'subject' => $subject , 'description' => $description , 'priority' => $priority );
-        return $success;
+
+
+
+
+        if ($task->save()) {
+
+            $success = array('message' => 'success', 'subject' => $subject , 'description' => $description , 'priority' => $priority, 'task_related_to' => ucwords(str_replace('_', ' ',$related_to)) , 'task_id' => $task->id  );
+            return $success;
+        }
+        
+
+
+        
     }
 
     /**
@@ -70,6 +95,10 @@ class TaskController extends Controller
     public function show($id)
     {
         //
+
+        $profile = Tasks::find($id);
+
+        return $profile->toJson();
     }
 
     /**
