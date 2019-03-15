@@ -4,6 +4,9 @@
 active
 @endsection
 
+@section('page_name')
+    Dashboard
+@endsection
 
 
 @section('modals')
@@ -18,7 +21,7 @@ active
             <div class="modal-body">
               
                 
-                    <form id="register_form" name="register_form" novalidate action="#"  method="POST">
+                    <form id="register_form" name="register_form" enctype="multipart/form-data" novalidate action="#"  method="POST">
                         @csrf
                             
     
@@ -26,7 +29,7 @@ active
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Subject</label>
-                                        <input type="text" class="form-control" name="subject" placeholder="e.g Layout update" value="" placeholder="">
+                                        <input type="text" class="form-control" name="subject" placeholder="e.g Layout update" value="" placeholder="" required>
                                     </div>
                                 </div>
                             </div>
@@ -34,10 +37,12 @@ active
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Priority</label>
-                                        <select class="form-control" name="priority">
-                                            <option value="not_urgent">Not Urgent</option>
-                                            <option value="required">Required</option>
-                                            <option value="urgent">Urgent</option>
+                                        <select class="form-control" name="priority" required>
+                                            <option value="low">Low (14 days)</option>
+                                            <option value="medium">Medium (7 days)</option>
+                                            <option value="high">High Priority (48 hours)</option>
+                                            <option value="urgent">Urgent (24 hours)</option>
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -47,15 +52,15 @@ active
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Task Related to:</label>
-                                        <select class="form-control" name="task_related_to">
-                                            <option value="website">Website</option>
+                                        <select class="form-control" id="task_related" name="task_related_to" required>
+                                            {{-- <option value="website">Website</option>
                                             <option value="supply_chain">Supply Chain</option>
                                             <option value="RAC_portal">RAC Portal</option>
                                             <option value="complaint_unit">Complaint Unit</option>
                                             <option value="unclaimed_benefit">Unclaimed Benefit</option>
                                             <option value="mobile_app">Mobile App</option>
                                             <option value="mozambique_website">Mozambique Website</option>
-                                            <option value="other">Other</option>
+                                            <option value="other">Other</option> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -67,10 +72,20 @@ active
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" name="description" ></textarea>
+                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" name="description" required></textarea>
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Atttach a file <small>(Screenshot / image)</small>
+                                        </label>
+                                        <input rows="5" class="form-control" type="file" placeholder="Here can be your description" accept="image/*" name="image" >
+                                    </div>
+                                </div>
+                            </div> --}}
     
                             {{-- <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button> --}}
                             <div class="clearfix"></div>
@@ -99,26 +114,55 @@ active
               <h4 class="modal-title" id="myModalLabel">Task</h4>
             </div>
             <div class="modal-body">
-              
-                    <dl class="dl-horizontal">
-                            <dt>Subject :</dt>
-                            <dd id="task_subject">...</dd><br>
-                            <dt>Description :</dt>
-                            <dd id="task_description">...</dd><br>
-                            <dt>Priority :</dt>
-                            <dd id="task_priority">...</dd><br>
-                            <dt>Status :</dt>
-                            <dd id="task_status">...</dd><br>
-                            <dt>Date :</dt>
-                            <dd id="task_date">...</dd>
-                            
-                    </dl>
+                    <div class="row">
+                            <div class="col-sm-5 col-sm-offset-1 ">
+                                <dl class="dl-horizontal">
+                                        <dt>Subject :</dt>
+                                        <dd id="task_subject">...</dd><br>
+                                        <dt>Description :</dt>
+                                        <dd id="task_description">...</dd><br>
+                                        <dt>Priority :</dt>
+                                        <dd id="task_priority">...</dd><br>
+                                        <dt>Status :</dt>
+                                        <dd id="task_status">...</dd><br>
+                                        <dt>Date :</dt>
+                                        <dd id="task_date">...</dd>
+                                        {{-- <dt>Attachments :</dt>
+                                        <dd id="task_attachment">...</dd> --}}
+                                        
+                                </dl>
+                            </div>
+                            <!-- <div class="col-sm-6">
+                                    <form id="note_form" name="note" enctype="multipart/form-data" novalidate action="#"  method="POST">
+                                        @csrf
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="note" style="z-index: 8000">Add a Note</label>
+                                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" name="note" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            {{-- <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button> --}}
+                                            <div class="clearfix"></div>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button type="button" class="btn btn-xs btn-default pull-right" data-dismiss="modal">submit</button>
+                                        </div>
+                                            
+                                    </div>
+                                    </form>
+                            </div> -->
+                        </div>
                 
                         
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              
 
             
             </div>
@@ -133,19 +177,22 @@ active
 
 
 
-
+<div class="row">
         <div class="col-md-12">
             <div class="card ">
                 <div class="header">
-                    <h4 class="title">Tasks  <button class="btn btn-info btn-flat btn-fill pull-right" data-toggle="modal" data-target="#createModal">Create Task</button></h4>
+                    <h4 class="title">Tasks  <button class="btn btn-info btn-flat btn-fill pull-right" id="task_create" data-toggle="modal" data-target="#createModal">Create Task</button></h4>
                 <p class="category">Recent Tasks</p>
                     
                 </div>
                 <div class="content">
-                    @if (count($tasks) != 0 )
+                    
 
                     <div class="table-full-width table-responsive">
+                         @if (count($tasks) != 0 )
                         <table class="table table-bordered" id="tb">
+
+                            
                                 <thead>
                                         <tr>
                                         
@@ -159,7 +206,7 @@ active
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                   
                                 @foreach ($tasks as $task)
 
                                 {{-- <tr>
@@ -219,9 +266,16 @@ active
                                 
                             </tbody>
                         </table>
+
+                        @else 
+
+                    <p class="text-center"><i class="fa fa-warning"></i> No tasks</p>
+
+
+                    @endif
                     </div>
 
-                    <div class="footer">
+                    {{-- <div class="footer">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="stats">
@@ -233,14 +287,11 @@ active
                                     
                         </div>
                     </div>
-                </div><span class="pull-right">{{$tasks->links()}}</span>
+                </div> --}}
+                
+                {{-- <span class="pull-right">{{$tasks->links()}}</span> --}}
                     </div>
-                    @else 
-
-                    <p class="text-center"><i class="fa fa-warning"></i> No tasks</p>
-
-
-                    @endif
+                    
 
                 
             </div>
@@ -261,6 +312,8 @@ var priority;
 var status;
 
 $(function() {
+
+
     
     $('#register_form').on('submit', function (e) {
     e.preventDefault();
@@ -268,6 +321,9 @@ $(function() {
 
     $.ajax({
         url: '/tasks',
+        headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
         type: 'POST',
         data: new FormData(this),
         dataType: 'json',
@@ -360,6 +416,18 @@ $(function() {
             case 'required':
                 priority = "Required";
                 break;
+            case 'low':
+                priority = "Low (14 days)";
+                break;
+            case 'medium':
+                priority = "Medium (7 days)";
+                break;
+            case 'high':
+                priority = "High Priority (48 hours)";
+                break;
+            case 'urgent':
+                priority = "Urgent (24 hours)";
+                break;
         }
 
         switch (data.status) {
@@ -397,6 +465,12 @@ $(function() {
     
     }); 
 
+
+    
+
+       
+    
+
     
 
     
@@ -404,6 +478,70 @@ $(function() {
 });
 
 
+
+</script>
+
+<script>
+
+    $(function(){
+
+
+        $('#task_create').on('click', function() {
+            
+            projectSelect();
+
+        });
+
+
+
+        function projectSelect() {
+            $.ajax({
+        url: '/selectproject',
+        type: 'GET',
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          
+          // $btn.button("reset");
+          // var obj = jQuery.parseJSON(data);
+          // //alert( obj.status === "success" );
+          // console.log(data);
+
+            if (data.length != 0 ) {
+
+                $('#task_related').html('');
+
+                for (i = 0; i < data.length ; i++) {
+                        
+                        $('#task_related').prepend(projectTemplate(data[i].project_name,  data[i].project_name_raw));
+
+          
+                }
+            }
+          
+            }
+      });
+
+
+
+      function projectTemplate(project, project_raw) {
+        return '<option value="' + project_raw + '">' + project +'</option>';
+      }
+        }
+
+
+
+
+
+
+
+
+
+
+        //end of document ready function
+    });
 
 </script>
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tasks;
+use App\Projects;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -26,7 +28,7 @@ class TaskController extends Controller
     {
         //
 
-        $tasks = Tasks::orderBy('created_at', 'desc')->paginate(6);
+        $tasks = Tasks::where('clients_id', Auth::user()->clients_id )->orderBy('created_at', 'desc')->paginate(6);
 
         $data = [
             'tasks' => $tasks,
@@ -59,16 +61,23 @@ class TaskController extends Controller
     {
         //
 
+        // $image = $request->file('image')->hashName();
+        // return $image;
+        // return Auth::user()->clients_id;
+
         $subject = $request->subject ;
         $priority = $request->priority ;
         $description = $request->description ;
         $related_to = $request->task_related_to ;
+        $user = Auth::id();
 
         $task = new Tasks;
         $task->subject = $subject;
         $task->priority = $priority;
         $task->description = $description;
         $task->task_related_to = $related_to;
+        $task->users_id = $user;
+        $task->clients_id = Auth::user()->clients_id;
 
 
 
@@ -122,6 +131,17 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tasks = Tasks::find($id);
+        $tasks->status = 1;
+        $tasks->save();
+
+        $success = [
+            'message' => 'success',
+            'description' => 'Marked as Done',
+            'id' => $id,
+        ];
+
+        return $success;
     }
 
     /**
@@ -133,5 +153,19 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function taskShow(Request $request, $id) {
+
+        //gets specified tasks based on client and date
+
+    }
+
+    public function selectProject() {
+
+        $client_id = Auth::user()->clients_id;
+
+        return Projects::where('clients_id', $client_id)->get();
     }
 }

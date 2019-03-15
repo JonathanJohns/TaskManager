@@ -8,8 +8,8 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                    <form method="POST" action="{{ route('register') }}">@csrf
+                        
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -38,6 +38,22 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                                <label for="client" class="col-md-4 col-form-label text-md-right">{{ __('Client') }}</label>
+    
+                                <div class="col-md-6">
+                                    <select id="client" type="text" class="form-control{{ $errors->has('client') ? ' is-invalid' : '' }}" name="client" value="{{ old('client') }}" required autofocus>
+                                        
+                                    </select>
+    
+                                    @if ($errors->has('client'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('client') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -74,4 +90,51 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+
+<script>
+    $(function() {
+
+        clientSelect();
+
+        function clientSelect() {
+            
+
+            $.ajax({
+                url : '/settings/allclients',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('#client').html('');
+
+                    if ($('#client').html() == '') {
+                        for (i = 0; i < data.length ; i++) {
+                        $('#client').prepend(clientSelectTemplate(data[i].client,  data[i].id));
+                    }
+
+        //             selectedClient = $('#client_select').children("option:selected").attr('data-user_id');
+        // console.log(selectedClient);
+        //             }
+                    }
+                }
+
+    
+    });
+
+}
+
+
+function clientSelectTemplate(client, id) {
+       
+       return '<option value="' + id + '">' + client +'</option>';
+
+  }
+
+    });
+</script>
 @endsection
