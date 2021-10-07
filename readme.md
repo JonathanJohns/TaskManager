@@ -1,71 +1,64 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<h1>Getting Started With TaskManager</h1>
+TaskManager is a open source too that allows individuals to manage their internal and external tasks. 
 
-## About Laravel
+<h2>How to Install TaskManager </h2>
+TaskManager is built on top of a PHP Framework called LARAVEL.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<h3>Installation Requirements</h3>
+To install and run Article Hub on your server or local environment. You will need set up the following on your Operating System of choice:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. LAMP (LINUX) OR WAMP (WINDOWS) DEVELOPMENT ENVIRONMENT  (GOOGLE FOR MORE INFO)
+2. NODE JS 
+3. COMPOSER
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<h3>Installation Steps</h3>
 
-## Learning Laravel
+<h4>1- Clone or download the repository</h4>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost you and your team's skills by digging into our comprehensive video library.
+<h4>2- Install the project dependencies from composer</h4>
+Each time you clone a new Laravel project, you have to install all the dependencies of the project. This is what allows you to install Laravel itself, among other packages needed to start your application.
+When we run composer, it checks the composer.json file that is in your repo and lists all the composer packages your repo needs. As these packages are constantly changing, the source code is usually not submitted to git, thanks to the .gitignore that should always contain your vendor directory.
+So to install all the necessary source code, we run composer with the following command.
 
-## Laravel Sponsors
+<br><code>composer install</code>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<h4>3- Install NPM dependencies (optional)</h4>
+This is exactly like the previous step with the only difference that it will allow you to install Vue.js, Bootstrap.css, Lodash and Laravel Mix etc…
+In short, instead of installing PHP code as in the previous step, it’s a matter of installing the required Javascript (or Node) packages.
+The list of packages needed in this case are listed in the ‘packages.json’ file.
+If your project doesn’t use vue.js, node or other you can skip this step, otherwise you have to do :
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
+<br><code>npm install</code>
 
-## Contributing
+<h4>4- Create a copy of your .env file</h4>
+The .env files are generally not submitted to your repo, if this is not the case I invite you to correct this for security reasons.
+But there is an example .env file, which is a template of the .env file that every laravel project needs to start.
+So we will make a copy of the .env.example file and create an .env file that we can fill in with our configuration settings.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<br><code>cp .env.example .env</code>
 
-## Security Vulnerabilities
+<h4>5- Generate your encryption key</h4>
+Laravel requires that you have an encryption key for each of your applications, this is usually randomly generated and stored in your .env file. The application will use this encryption key to encrypt various elements of your application, such as cookies, password hashes and many other elements.
+Fortunately Laravel’s command line tools allows you to generate this key very easily. In the terminal, we can execute this command to generate this key.
+<br>
+<code>php artisan key:generate</code>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<h4>6- Create an empty database for your project</h4>
+Create an empty database for your project using any database tools you prefer (My favorite is Datagrip for Mac, but sometimes I use DBForge, or Mysql Workbench or even good old Phpmyadmin).
 
-## License
+<h4>7- Configure your .env file to allow a connection to the database</h4>
+We will want to allow Laravel to connect to the database you just created in the previous step. To do this we need to add the connection references in the .env file and Laravel will take care of the connection from there.
+In the .env file, fill in the options DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME and DB_PASSWORD so that they match the credentials of the database you have just created.
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+<h4>8- Add the tables and contents of your database with migrations or in SQL</h4>
+Migrations in Laravel allow you to have all your DB architecture in your code and with a simple command line you can recreate all your tables.
+<br>
+<code>php artisan migrate</code>
+
+<h4>Conclusion</h4>
+That’s all you need to start the project. Of course, some projects have specific steps that apply only to that project, but the steps I’ve described above are the necessary steps you’ll need to follow to start any standard Laravel project from a git clone.
+It’s essentially the same thing on windows, unless you don’t have a batch terminal. This would be surprising because if you install git on a windows server or machine, then right-click in your folder, you should get the ‘git bash here’ option and you’re done.
+
