@@ -1,6 +1,6 @@
 
 <h1>Getting Started With TaskManager</h1>
-TaskManager is a open source too that allows individuals to manage their internal and external tasks. 
+TaskManager is a open source tool that allows individuals to manage their internal and external tasks. 
 
 <h2>How to Install TaskManager </h2>
 TaskManager is built on top of a PHP Framework called LARAVEL.
